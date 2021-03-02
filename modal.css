@@ -18,11 +18,10 @@ body {
   flex-direction: column;
   padding: 0 7%;
 }
-
 /* Header________________________________________ */
 .topnav {
   overflow: hidden;
-  padding: 3rem 0;
+  padding: 3rem 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,21 +29,12 @@ body {
 .header-logo img {
   width: 100%;
 }
-.main-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-a {
+.main-navbar a {
   text-decoration: none;
-  font-size: 1rem;
   color: black;
-  font-family: var(--font-default);
   padding: 0.8rem 1rem;
 }
-
-a:hover, a:active {
+.main-navbar a:hover {
   background-color: #ff0000;
   text-decoration: underline;
   text-underline-offset: 0.25rem;
@@ -52,20 +42,11 @@ a:hover, a:active {
   border-radius: 0.6rem;
   font-weight: normal;
 }
-
-/*.topnav a:active {
-  background-color: #ff0000;
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
-  color: #ffffff;
-  border-radius: 0.6rem;
-}*/
-
 .icon {
   display: none;
   color: #fe142f;
   font-size: 1.6rem;
-  padding: 0;
+  padding: 0 1rem;
 }
 .icon:hover {
   background-color: #fff;
@@ -109,7 +90,7 @@ a:hover, a:active {
   background: #fe142f;
   display: flex;
   color: #fff;
-  padding: 0.5rem 1.2rem;
+  padding: 0.5rem 2rem;
   border-radius: 0.5rem;
   cursor: pointer;
   border: none;
@@ -126,8 +107,8 @@ a:hover, a:active {
 }
 /* Footer ________________________________________*/
 footer p {
-  margin: 2.5rem 3%;
-  font-family: var(--font-slab);
+  margin: 2.5rem 2rem;
+  font-size: 0.9rem;
   color: #fe142f;
   font-weight: bolder;
 }
@@ -153,11 +134,14 @@ footer p {
 .button:hover {
   background: #3876ac;
 }
+.mediumScreen {
+  display: none;
+}
 /* Background */
 .bground {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   left: 0;
   top: 0;
   height: 100vh;
@@ -186,9 +170,6 @@ footer p {
   justify-content: center;
 }
 label {
-  font-family: var(--font-default);
-  font-size: 1rem;
-  font-weight: normal;
   display: inline-block;
   margin-bottom: 0.8rem;
   margin-top: 0.6rem;
@@ -395,94 +376,6 @@ form :nth-child(7) + .formData {
   font-size: 16px;
 }
 */
-
-/* Media Query ________________________________________________*/
-@media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-} 
-@media screen and (max-width: 1030px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    display: block;
-  }
-  .topnav.responsive {
-    position: relative;
-  }
-  .main-navbar {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 1rem;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  .header-logo img {
-    width: 10rem;
-  }
-  .hero-section {
-    display: block;
-    box-shadow: unset;
-    margin: 0;
-  }
-  .hero-content {
-    background: #fff;
-    color: #000;
-    padding: 0;
-  }
-  .hero-content::after {
-    content: unset;
-  }
-  .hero-content .btn-signup {
-    display: none;
-  }
-  .hero-headline {
-    font-size: 3rem;
-    font-weight: bold;
-    white-space: normal;
-  }
-  .hero-text {
-    width: unset;
-    font-size: 1.5rem;
-  }
-  .hero-img img {
-    border-radius: 10px;
-    margin-top: 40px;
-  }
-  .hero-section > .btn-signup {
-    display: block;
-    margin: 32px auto 10px;
-    padding: 12px 35px;
-  }
-  .copyrights {
-    margin-top: 50px;
-    text-align: center;
-  }
-}
-/* Keyframe Modalopen ___________________________________________________*/
-@keyframes modalopen {
-  from {
-    opacity: 0;
-    transform: translateY(-150px);
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 /* classes ajoutées _____________________________________________________*/
 .divValidate {
   display: flex;
@@ -509,4 +402,117 @@ form :nth-child(7) + .formData {
   position: absolute;
   bottom: 1.6rem;
 }
+
+/* Media Query ________________________________________________*/
+@media screen and (max-width: 1030px) {
+  .main-navbar {
+    display: none;
+  }
+  .topnav a.icon {
+    display: block;
+    position: relative;
+  }
+  .navVisible {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    top: 5rem;
+    right: 7%;
+    z-index: 4;
+  }
+  .main-navbar a {
+    color: #fe142f;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 0.6rem;
+  }
+  .largeScreen {
+    display: none;
+  }
+  .mediumScreen {
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto 0;
+    text-align: center;
+  }
+  .header-logo img {
+    width: 10rem;
+  }
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: unset;
+    margin: 0;
+  }
+  .hero-content {
+    background: #fff;
+    color: #000;
+    padding: 0;
+  }
+  .hero-headline {
+    font-size: 3rem;
+    font-weight: bold;
+    white-space: normal;
+  }
+  .hero-text {
+    margin-bottom: 2rem;
+  }
+  .hero-img img {
+    border-radius: 10px;
+  }
+  .copyrights {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 530px) {
+  /*.main-navbar a {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+    font-size: 1.4rem;
+  }*/
+  .topnav {
+    padding: 1.8rem 0 1.2rem;
+  }
+  .main-navbar {
+    top: 4rem;
+  }
+  .hero-headline {
+    font-size: 2.4rem;
+  }
+  .hero-text {
+    font-size: 1rem;
+    line-height: inherit;
+    margin: 1rem 0 3rem;
+  }
+  .header-logo img {
+    width: 7rem;
+  }
+  .bground {
+    background-color: inherit;
+  }
+  .content {
+    margin: 5rem auto;
+  }
+  .label {
+    font-size: 0.8rem;
+    margin: 0.3rem 0 0.5rem;
+  }
+} 
+
+/* Keyframe Modalopen ___________________________________________________*/
+@keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 

@@ -1,9 +1,10 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  var x = document.getElementById("mainNavBar");
+  //navBar.style.display = "block";
+  if (x.className === "main-navbar") {
+    x.className += " navVisible";
   } else {
-    x.className = "topnav";
+    x.className = "main-navbar";
   }
 }
 // DOM Elements _____________________________________________________
@@ -213,6 +214,7 @@ function validate(event) {
     request.send(JSON.stringify(jsonBody));
   }
 }
+
 
 
 

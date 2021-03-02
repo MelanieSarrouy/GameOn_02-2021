@@ -25,17 +25,20 @@
 
       <header class="topnav" id="myTopnav">
         <div class="header-logo">
-          <img alt="logo" src="./img/Logo.png" />
+          <a href="index.html">
+            <img alt="logo" src="./img/Logo.png" />
+          </a>
         </div>
-        <div class="main-navbar">
+        <div class="main-navbar" id="mainNavBar">
           <a href="#"><span>Détails de l'évènement</span></a>
           <a href="#"><span>À propos</span></a>
           <a href="#"><span>Contact</span></a>
           <a href="#"><span>Évènements passés</span></a>
-          <a href="javascript:void(0);" class="icon" onclick="editNav()">
-            <i class="fa fa-bars"></i>
-          </a>
         </div>
+        <a href="javascript:void(0);" class="icon" onclick="editNav()">
+          <i class="fa fa-bars"></i>
+        </a>
+
       </header>
 
       <!-- Main -->
@@ -48,11 +51,13 @@
               Vous aimez jouer ? Notre prochain évènement gaming
               est ouvert aux réservations... Places limitées !
             </p>
-            <button class="modal-btn">Je m'inscris</button>
+            <button class="modal-btn largeScreen">Je m'inscris</button>
           </div>
           <div class="hero-img">
             <img src="./img/bg_img.jpg" alt="img" />
           </div>
+          <button class="modal-btn mediumScreen">Je m'inscris</button>
+
         </section>
 
         <!-- Modal -->
