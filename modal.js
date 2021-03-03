@@ -1,3 +1,4 @@
+// 
 function editNav() {
   var x = document.getElementById("mainNavBar");
   //navBar.style.display = "block";
@@ -39,26 +40,22 @@ const formDataSeven = formData[6]; // ciblage 7eme element formData - div checkb
 let erreur = false;
 
 
-// launch modal event ________________________________________________
+// function launchModal ________________________________________________
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-// launch modal form
+
 function launchModal() {
   modalbg.style.display = "block";
 }
-// launch closeModal event __________________________________________
 // function closeModal
 cross.addEventListener("click", closeModal);
 
 function closeModal() {
   modalbg.style.display = "none";
 }
-// launch thanckYou event ____________________________________________
-
 // function thanckYou
-
 function thanckYou(event) {  
-  modalBody.appendChild(newDiv);// newDiv est enfant de modalBody
-  modalBody.appendChild(form);
+  modalBody.appendChild(newDiv); // newDiv est enfant de modalBody
+  modalBody.appendChild(form); // form est enfant de modalBody
   modalBody.classList.add("divValidate");// attribution de la classe "divValidate" à modalBody
   newDiv.appendChild(message);// message est un enfant de newDiv
   message.classList.add("pValidate");// attribution de la classe "pValidate" à message
@@ -81,6 +78,7 @@ pErrorFirstName.classList.add("pError");
 let regexFirstName = /^[a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+([ -'][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+)?$/;
 
 firstName.addEventListener("blur", testFirstName);
+firstName.addEventListener("focus", testFirstName);
 
 function testFirstName(event) {
   event.preventDefault();
@@ -89,7 +87,7 @@ function testFirstName(event) {
      (!regexFirstName.test(firstName.value)) || 
      (firstName.value == "")) {
     firstName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorFirstName.innerHTML = "Vous devez remplir au moins 2 caractères"; // message d'erreur sur paragraphe pError;
+    pErrorFirstName.innerHTML = "Veuillez saisir votre prénom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
     erreur = true;
   } else {
     firstName.classList.remove("inputError");
@@ -103,6 +101,7 @@ pErrorLastName.classList.add("pError");
 let regexLastName = regexFirstName;
 
 lastName.addEventListener("blur", testLastName);
+lastName.addEventListener("focus", testLastName);
 
 function testLastName(event) {
   event.preventDefault();
@@ -111,7 +110,7 @@ function testLastName(event) {
      (!regexLastName.test(lastName.value)) || 
      (lastName.value == "")) {
     lastName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorLastName.innerHTML = "Vous devez remplir au moins 2 caractères"; // message d'erreur sur paragraphe pError;
+    pErrorLastName.innerHTML = "Veuillez saisir votre nom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
     erreur = true;
   } else {
     lastName.classList.remove("inputError");
@@ -125,6 +124,7 @@ pErrorEmail.classList.add("pError");
 let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;;
 
 eMail.addEventListener("blur", testEmail);
+eMail.addEventListener("focus", testEmail);
 
 function testEmail(event) {
   event.preventDefault();
@@ -146,12 +146,13 @@ formDataFour.appendChild(pErrorBirthDate);
 pErrorBirthDate.classList.add("pError");
 
 birthDate.addEventListener("blur", testBirthDate);
+birthDate.addEventListener("focus", testBirthDate);
 
 function testBirthDate(event) {
   event.preventDefault();
   if (birthDate.value == "") {
     birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorBirthDate.innerHTML = "Vous devez entrer votre date de naissance"; // message d'erreur sur paragraphe pError;
+    pErrorBirthDate.innerHTML = "Veuillez saisir votre date de naissance"; // message d'erreur sur paragraphe pError;
     erreur = true;
   } else {
     birthDate.classList.remove("inputError");
@@ -173,7 +174,7 @@ function testRadio(event) {
       (document.getElementById("location4").checked == true) ||
       (document.getElementById("location5").checked == true) ||
       (document.getElementById("location6").checked == true))) {
-    pErrorRadio.innerHTML = "Vous devez choisir une ville"; // message d'erreur sur paragraphe pError;
+    pErrorRadio.innerHTML = "Veuillez choisir une ville"; // message d'erreur sur paragraphe pError;
     erreur = true;
   } else {
     pErrorRadio.innerHTML = "";
@@ -204,7 +205,7 @@ function validate(event) {
   event.preventDefault();
   event.stopPropagation();
   if (erreur == true) {
-    alert("Veuillez saisir correctement les données demandées");
+    alert("Veuillez saisir correctement les informations demandées");
   } else if (erreur == false) {
     goButton.addEventListener("click", thanckYou);    
     thanckYou();
