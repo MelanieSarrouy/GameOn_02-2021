@@ -34,13 +34,17 @@ body {
   color: black;
   padding: 0.8rem 1rem;
 }
+.main-navbar a span {
+  padding: 0.8rem 0rem 0.15rem 0rem;
+}
 .main-navbar a:hover {
   background-color: #ff0000;
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
   color: #ffffff;
   border-radius: 0.6rem;
   font-weight: normal;
+}
+.main-navbar a span:hover {
+  border-bottom: solid #fff 0.12rem;
 }
 .icon {
   display: none;
@@ -51,9 +55,10 @@ body {
 .icon:hover {
   background-color: #fff;
   color: #fe142f;
-
 }
-
+.icon:focus-visible {
+  outline: none;
+}
 /* Main __________________________________________*/
 .hero-section {
   border-radius: 0.8rem;
@@ -95,11 +100,17 @@ body {
   cursor: pointer;
   border: none;
   font-size: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.9rem;
   outline: none;
 }
 .modal-btn:hover {
   background: #3876ac;
+}
+.hero-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .hero-img img {
   width: 100%;
@@ -120,7 +131,6 @@ footer p {
   padding: 0.6rem 2rem;
   color: #fff;
   border-radius: 0.5rem;
-  width: 34%;
   cursor: pointer;
   border: none;
   position: relative;
@@ -147,7 +157,7 @@ footer p {
   z-index: 5;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: 1000px;
   width: 100vw;
   background-color: rgba(26, 39, 156, 0.4);
   }
@@ -176,6 +186,9 @@ label {
   display: inline-block;
   margin-bottom: 0.8rem;
   margin-top: 0.6rem;
+}
+.force {
+  color: #fe142f;
 }
 input {
   border: none;
@@ -304,12 +317,11 @@ form :nth-child(7) + .formData {
   margin: 0.3rem 0 0 0;
 }
 .buttonClose {
-  width: 28%;
   position: absolute;
   bottom: 1.6rem;
 }
 /* Media Query ________________________________________________*/
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1030px) {
   .main-navbar {
     display: none;
   }
@@ -320,7 +332,7 @@ form :nth-child(7) + .formData {
   .navVisible {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     position: absolute;
     top: 5rem;
     right: 7%;
@@ -331,6 +343,7 @@ form :nth-child(7) + .formData {
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.85);
     border-radius: 0.6rem;
+    margin-top: 0.5rem;
   }
   .main-navbar a:nth-child(1) {
     animation: navbar 800ms ease-out backwards;
@@ -358,11 +371,19 @@ form :nth-child(7) + .formData {
     width: 10rem;
   }
   .hero-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     box-shadow: unset;
-    margin: 0;
+  }
+  .copyrights {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 960px) {
+  .hero-section {display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
   }
   .hero-content {
     background: #fff;
@@ -379,11 +400,6 @@ form :nth-child(7) + .formData {
   }
   .hero-img img {
     border-radius: 10px;
-  }
-  .copyrights {
-    margin-top: 2rem;
-    text-align: center;
-    font-size: 0.7rem;
   }
 }
 @media screen and (max-width: 540px) {
@@ -409,6 +425,12 @@ form :nth-child(7) + .formData {
   }
   .content {
     margin: 5rem auto;
+  }
+  .modal-body {
+    height: auto;
+  }
+  .divValidate {
+    height: 80vh;
   }
   label {
     font-size: 0.8rem;

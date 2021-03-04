@@ -1,7 +1,6 @@
-// 
+// Function editNav __________________________________________________
 function editNav() {
   var x = document.getElementById("mainNavBar");
-  //navBar.style.display = "block";
   if (x.className === "main-navbar") {
     x.className += " navVisible";
   } else {
@@ -10,35 +9,41 @@ function editNav() {
 }
 // DOM Elements _____________________________________________________
 const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn"); // bouton d'inscription
+const modalBtn = document.querySelectorAll(".modal-btn"); // boutons de lancement de la modale
 let goButton = document.getElementById("button"); // bouton validation
+
+const form = document.getElementById("form"); // le formulaire
 const formData = document.getElementsByClassName("formData"); // Toutes les div formData avec input
 let inputRadioLocation = document.querySelectorAll("form:nth-child(7) .checkbox-input");
 let inputCheckBox = document.querySelectorAll("form:nth-child(8) .checkbox-input");
-const form = document.getElementById("form"); // le formulaire
-const textControl = document.querySelectorAll(".text-control"); //tous les input "text-control"
+
+const cross = document.getElementById("close"); // X fermeture de la modale
+
 const modalBody = document.querySelector(".modal-body"); // div du contenu de la modale
-let cross = document.getElementById("close"); // X fermeture de la modale
 const newDiv = document.createElement("div"); // creation d'une newDiv pour le message de validation
 const message = document.createElement("p"); // création d'un paragraphe appelé message
-let pErrorFirstName = document.createElement("p"); // creation du p error FirstName
-let pErrorLastName = document.createElement("p"); // creation du p error LastName
-let pErrorEmail = document.createElement("p"); // creation du p error Email
-let pErrorBirthDate = document.createElement("p");// creation du p error BirthDate
-let pErrorRadio = document.createElement("p"); // creation du p error Radio
-let pErrorCheckbox = document.createElement("p"); // creation du p error Checkbox
-let firstName = document.getElementById("firstname"); // ajout input firstname dans le DOM
-let lastName = document.getElementById("lastname"); // ajout input lastname dans le DOM
-let eMail = document.getElementById("email"); // ajout input lastname dans le DOM
-let birthDate = document.getElementById("birthdate"); // ajout input birthdate dans le DOM
+
+const pErrorFirstName = document.createElement("p"); // creation du p error FirstName
+const pErrorLastName = document.createElement("p"); // creation du p error LastName
+const pErrorEmail = document.createElement("p"); // creation du p error Email
+const pErrorBirthDate = document.createElement("p");// creation du p error BirthDate
+const pErrorRadio = document.createElement("p"); // creation du p error Radio
+const pErrorCheckbox = document.createElement("p"); // creation du p error Checkbox
+
+const firstName = document.getElementById("firstname"); // ajout input firstname dans le DOM
+const lastName = document.getElementById("lastname"); // ajout input lastname dans le DOM
+const eMail = document.getElementById("email"); // ajout input email dans le DOM
+const birthDate = document.getElementById("birthdate"); // ajout input birthdate dans le DOM
+const quantity = document.getElementById("quantity"); // ajout input quantity dans le DOM
+
 const formDataOne = formData[0]; // ciblage 1er element formData - div firstname
 const formDataTwo = formData[1]; // ciblage 2eme element formData - div lastname
 const formDataThree = formData[2]; // ciblage 3eme element formData - div email
 const formDataFour = formData[3]; // ciblage 4eme element formData - div birthdate
 const formDataSix = formData[5]; // ciblage 6eme element formData - div location
 const formDataSeven = formData[6]; // ciblage 7eme element formData - div checkbox
-let erreur = false;
 
+let erreur = false;
 
 // function launchModal ________________________________________________
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -53,35 +58,29 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 // function thanckYou
-function thanckYou(event) {  
+function thanckYou() {  
   modalBody.appendChild(newDiv); // newDiv est enfant de modalBody
   modalBody.appendChild(form); // form est enfant de modalBody
   modalBody.classList.add("divValidate");// attribution de la classe "divValidate" à modalBody
   newDiv.appendChild(message);// message est un enfant de newDiv
   message.classList.add("pValidate");// attribution de la classe "pValidate" à message
   modalBody.replaceChild(newDiv, form);// form est remplacé par newDiv
-
-  message.innerHTML = "Merci, " + firstName.value + " votre réservation a bien été enregistrée !<br/> <br/>The Show Must GameOn !";// contenu de message
-  
+  message.innerHTML = "Merci " + firstName.value + ", votre réservation a bien été enregistrée !<br/> <br/>The Show Must GameOn !";// contenu de message
   newDiv.appendChild(goButton);// goButton est un enfant de newDiv
   goButton.classList.add("buttonClose");// attribution de la classe "buttonClose" à goButton
-  goButton.value = "Fermer";// changement de la valeur de l'attr value à goButton
-  
-  //event.preventDefault();// suppression des "réactions" par défaut du nav
-  //event.stopPropagation();// supp de la propagation de l'event aux "parents"
+  goButton.value = "Fermer";// changement de la valeur de l'attr value de goButton
 
   goButton.addEventListener("click", closeModal);// écoute de l'event "click" sur goButton / action: closeModal
 }
-// launch testFirstName event ______________________________
+// function testFirstName ________________________________
 formDataOne.appendChild(pErrorFirstName);
 pErrorFirstName.classList.add("pError");
 let regexFirstName = /^[a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+([ -'][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+)?$/;
 
 firstName.addEventListener("blur", testFirstName);
-firstName.addEventListener("focus", testFirstName);
+goButton.addEventListener("mousedown", testFirstName);
 
-function testFirstName(event) {
-  event.preventDefault();
+function testFirstName() {
   if ((firstName.value.length < 2) || 
      (firstName.value.length >= 30) ||
      (!regexFirstName.test(firstName.value)) || 
@@ -89,22 +88,22 @@ function testFirstName(event) {
     firstName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorFirstName.innerHTML = "Veuillez saisir votre prénom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
     erreur = true;
+    firstName.addEventListener("input", testFirstName);
   } else {
     firstName.classList.remove("inputError");
     pErrorFirstName.innerHTML = "";
     erreur = false;
   }
 }
-// launch testLastName event ______________________________
+// function testLastName _________________________________
 formDataTwo.appendChild(pErrorLastName);
 pErrorLastName.classList.add("pError");
 let regexLastName = regexFirstName;
 
 lastName.addEventListener("blur", testLastName);
-lastName.addEventListener("focus", testLastName);
+goButton.addEventListener("mousedown", testLastName);
 
-function testLastName(event) {
-  event.preventDefault();
+function testLastName() {
   if ((lastName.value.length < 2) || 
      (lastName.value.length >= 30) ||
      (!regexLastName.test(lastName.value)) || 
@@ -112,22 +111,22 @@ function testLastName(event) {
     lastName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorLastName.innerHTML = "Veuillez saisir votre nom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
     erreur = true;
+    lastName.addEventListener("input", testLastName);
   } else {
     lastName.classList.remove("inputError");
     pErrorLastName.innerHTML = "";
     erreur = false;
   }
 }
-// launch testEmail event ______________________________
+// function testEmail ____________________________________
 formDataThree.appendChild(pErrorEmail);
 pErrorEmail.classList.add("pError");
 let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;;
 
 eMail.addEventListener("blur", testEmail);
-eMail.addEventListener("focus", testEmail);
+goButton.addEventListener("mousedown", testEmail);
 
-function testEmail(event) {
-  event.preventDefault();
+function testEmail() {
   if ((eMail.value.length < 5) || 
      (eMail.value.length >= 30) ||
      (!regexEmail.test(eMail.value)) || 
@@ -135,18 +134,19 @@ function testEmail(event) {
     eMail.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorEmail.innerHTML = "Adresse mail incorrecte"; // message d'erreur sur paragraphe pError;
     erreur = true;
+    eMail.addEventListener("input", testEmail);
   } else {
     eMail.classList.remove("inputError");
     pErrorEmail.innerHTML = "";
     erreur = false;
   }
 }
-// launch testBirthDate event ______________________________
+// function testBirthDate ________________________________
 formDataFour.appendChild(pErrorBirthDate);
 pErrorBirthDate.classList.add("pError");
 
 birthDate.addEventListener("blur", testBirthDate);
-birthDate.addEventListener("focus", testBirthDate);
+goButton.addEventListener("mousedown", testBirthDate);
 
 function testBirthDate(event) {
   event.preventDefault();
@@ -154,26 +154,27 @@ function testBirthDate(event) {
     birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorBirthDate.innerHTML = "Veuillez saisir votre date de naissance"; // message d'erreur sur paragraphe pError;
     erreur = true;
+    birthDate.addEventListener("input", testBirthDate);
   } else {
     birthDate.classList.remove("inputError");
     pErrorBirthDate.innerHTML = "";
     erreur = false;
   }
 }
-// launch testRadio event ______________________________
+// launch testRadio event _________________________________
 formDataSix.appendChild(pErrorRadio);
 pErrorRadio.classList.add("pError");
 
-formDataSix.addEventListener("mouseout", testRadio);
+formDataSix.addEventListener("click", testRadio);
+goButton.addEventListener("mousedown", testRadio);
 
-function testRadio(event) {
-  event.preventDefault();
+function testRadio() {
   if (!((document.getElementById("location1").checked == true) || 
       (document.getElementById("location2").checked == true) ||
       (document.getElementById("location3").checked == true) ||
       (document.getElementById("location4").checked == true) ||
       (document.getElementById("location5").checked == true) ||
-      (document.getElementById("location6").checked == true))) {
+      (document.getElementById("location6").checked == true)) ) {
     pErrorRadio.innerHTML = "Veuillez choisir une ville"; // message d'erreur sur paragraphe pError;
     erreur = true;
   } else {
@@ -185,10 +186,10 @@ function testRadio(event) {
 formDataSeven.appendChild(pErrorCheckbox);
 pErrorCheckbox.classList.add("pError");
 
-formDataSeven.addEventListener("mouseout", testCheckbox);
+formDataSeven.addEventListener("click", testCheckbox);
+goButton.addEventListener("mousedown", testCheckbox);
 
-function testCheckbox(event) {
-  event.preventDefault();
+function testCheckbox() {
   if ((document.getElementById("checkbox1").checked !== true) ) {
     pErrorCheckbox.innerHTML = "Vous devez accepter les conditions d'utilisation"; // message d'erreur sur paragraphe pError;
     erreur = true;
@@ -201,12 +202,8 @@ function testCheckbox(event) {
 
 form.addEventListener("submit", validate);
 
-function validate(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  if (erreur == true) {
-    alert("Veuillez saisir correctement les informations demandées");
-  } else if (erreur == false) {
+function validate() {
+  if (erreur == false) {
     goButton.addEventListener("click", thanckYou);    
     thanckYou();
     let request = new XMLHttpRequest();
@@ -215,8 +212,3 @@ function validate(event) {
     request.send(JSON.stringify(jsonBody));
   }
 }
-
-
-
-
-

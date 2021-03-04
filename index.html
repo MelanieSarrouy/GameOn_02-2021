@@ -29,12 +29,12 @@
             <img alt="logo" src="./img/Logo.png" />
           </a>
         </div>
-        <div class="main-navbar" id="mainNavBar">
+        <nav class="main-navbar" id="mainNavBar">
           <a href="#"><span>Détails de l'évènement</span></a>
           <a href="#"><span>À propos</span></a>
           <a href="#"><span>Contact</span></a>
           <a href="#"><span>Évènements passés</span></a>
-        </div>
+        </nav>
         <a href="javascript:void(0);" class="icon" onclick="editNav()">
           <i class="fa fa-bars"></i>
         </a>
@@ -53,12 +53,14 @@
             </p>
             <button class="modal-btn largeScreen">Je m'inscris</button>
           </div>
-          <div class="hero-img">
-            <img src="./img/bg_img.jpg" alt="img" />
-          </div>
-          <button class="modal-btn mediumScreen">Je m'inscris</button>
-
+          <picture class="hero-img">
+            <source media="(max-width: 640px)" srcset="./img/bg_img.jpg" />
+            <source media="(max-width: 960px)" srcset="./img/bg_pano_img.jpg" />
+            <img src="./img/bg_img.jpg" alt="image d'une joueuse de jeux video de dos" />
+          </picture>
         </section>
+        <button class="modal-btn mediumScreen">Je m'inscris</button>
+
 
         <!-- Modal -->
         <div class="bground">
@@ -72,32 +74,32 @@
               <form id="form" name="reserve" action="index.html" method="GET" onsubmit="return validate()">
                 
                 <div class="formData">
-                  <label for="firstname" >Prénom</label>
+                  <label for="firstname" >Prénom<span class="force"> *</span></label>
                   <input class="text-control" type="text" id="firstname" name="firstName" required />
                 </div>
 
                 <div class="formData">
-                  <label for="lastname">Nom</label>
+                  <label for="lastname">Nom<span class="force"> *</span></label>
                   <input class="text-control" type="text" id="lastname" name="lastName" required />
                 </div>
 
                 <div class="formData">
-                  <label for="email">Email</label>
+                  <label for="email">Email<span class="force"> *</span></label>
                   <input class="text-control" type="email" id="email" name="email" required />
                 </div>
 
                 <div class="formData">
-                  <label for="birthdate">Date de naissance</label>
+                  <label for="birthdate">Date de naissance<span class="force"> *</span></label>
                   <input class="text-control" type="date" id="birthdate" name="birthdate" min="1920-01-01" max="2016-01-01" required />
                 </div>
 
                 <div class="formData">
                   <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
-                  <input class="text-control" type="number" id="quantity" name="quantity" min="0" max="99">
+                  <input class="text-control" type="number" id="quantity" name="quantity" min="0" max="99" value="0" />
                 </div>
 
                 <!-- checkbox villes -->
-                <p class="text-label">Quelle ville ?</p>
+                <p class="text-label">Dans quelle ville souhaitez-vous réserver ?<span class="force"> *</span></p>
 
                 <div class="formData">
                   <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" required/>
@@ -138,6 +140,7 @@
                   <label class="checkbox2-label" for="checkbox1">
                     <span class="checkbox-icon"></span>
                     J'ai lu et accepté les conditions d'utilisation.
+                    <span class="force"> *</span>
                   </label>
                   <input class="checkbox-input" type="checkbox" id="checkbox2" />
                   <label class="checkbox2-label" for="checkbox2">
