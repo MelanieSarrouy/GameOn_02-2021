@@ -43,8 +43,6 @@ const formDataFour = formData[3]; // ciblage 4eme element formData - div birthda
 const formDataSix = formData[5]; // ciblage 6eme element formData - div location
 const formDataSeven = formData[6]; // ciblage 7eme element formData - div checkbox
 
-let erreur = false;
-
 // function launchModal ________________________________________________
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -87,12 +85,12 @@ function testFirstName() {
      (firstName.value == "")) {
     firstName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorFirstName.innerHTML = "Veuillez saisir votre prénom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
-    erreur = true;
     firstName.addEventListener("input", testFirstName);
+    return false;
   } else {
     firstName.classList.remove("inputError");
     pErrorFirstName.innerHTML = "";
-    erreur = false;
+    return true;
   }
 }
 // function testLastName _________________________________
@@ -110,12 +108,12 @@ function testLastName() {
      (lastName.value == "")) {
     lastName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorLastName.innerHTML = "Veuillez saisir votre nom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
-    erreur = true;
     lastName.addEventListener("input", testLastName);
+    return false;
   } else {
     lastName.classList.remove("inputError");
     pErrorLastName.innerHTML = "";
-    erreur = false;
+    return true;
   }
 }
 // function testEmail ____________________________________
@@ -133,12 +131,12 @@ function testEmail() {
      (eMail.value == "")) {
     eMail.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorEmail.innerHTML = "Adresse mail incorrecte"; // message d'erreur sur paragraphe pError;
-    erreur = true;
     eMail.addEventListener("input", testEmail);
+    return false;
   } else {
     eMail.classList.remove("inputError");
     pErrorEmail.innerHTML = "";
-    erreur = false;
+    return true;
   }
 }
 // function testBirthDate ________________________________
@@ -148,17 +146,28 @@ pErrorBirthDate.classList.add("pError");
 birthDate.addEventListener("blur", testBirthDate);
 goButton.addEventListener("mousedown", testBirthDate);
 
-function testBirthDate(event) {
-  event.preventDefault();
+
+function testBirthDate() {
+  year = birthDate.value.substring(0,4);
+  var today = new Date();	// Récupération de la date actuelle
+  var age = today.getFullYear() - year;	// Calcul de l'âge
   if (birthDate.value == "") {
     birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorBirthDate.innerHTML = "Veuillez saisir votre date de naissance"; // message d'erreur sur paragraphe pError;
-    erreur = true;
     birthDate.addEventListener("input", testBirthDate);
+    return false;
+  } else  if (age < 12) {
+    birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
+    pErrorBirthDate.innerHTML = "Vous n'avez pas l'âge minimum requis (12 ans)"; // message d'erreur sur paragraphe pError;
+    return false;
+  } else if (age < 18) {
+    birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
+    pErrorBirthDate.innerHTML = "Vous n'êtes pas majeur, une autorisation parentale vous sera demandé"; // message d'erreur sur paragraphe pError;
+    return true;
   } else {
     birthDate.classList.remove("inputError");
     pErrorBirthDate.innerHTML = "";
-    erreur = false;
+    return true;
   }
 }
 // launch testRadio event _________________________________
@@ -176,10 +185,10 @@ function testRadio() {
       (document.getElementById("location5").checked == true) ||
       (document.getElementById("location6").checked == true)) ) {
     pErrorRadio.innerHTML = "Veuillez choisir une ville"; // message d'erreur sur paragraphe pError;
-    erreur = true;
+    return false;
   } else {
     pErrorRadio.innerHTML = "";
-    erreur = false;
+    return true;
   }
 }
 // launch testCheckbox event ______________________________
@@ -192,23 +201,31 @@ goButton.addEventListener("mousedown", testCheckbox);
 function testCheckbox() {
   if ((document.getElementById("checkbox1").checked !== true) ) {
     pErrorCheckbox.innerHTML = "Vous devez accepter les conditions d'utilisation"; // message d'erreur sur paragraphe pError;
-    erreur = true;
+    return false;
   } else {
     pErrorCheckbox.innerHTML = "";
-    erreur = false;
+    return true;
   }
 }
 // launch submit event ______________________________
 
 form.addEventListener("submit", validate);
 
-function validate() {
-  if (erreur == false) {
+function validate(event) {
+  event.preventDefault();
+  if ((testFirstName() == true) && 
+      (testLastName() == true) &&
+      (testEmail() == true) &&
+      (testBirthDate() == true) &&
+      (testRadio() == true) &&
+      (testCheckbox() == true)) {
     goButton.addEventListener("click", thanckYou);    
     thanckYou();
     let request = new XMLHttpRequest();
     request.open("GET", "http://url-service-web.com/api/users");
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify(jsonBody));
+  } else {
+    alert("Veuillez saisir correctement les informations demandées");
   }
 }
