@@ -49,13 +49,13 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
-// function closeModal
+// function closeModal _________________________________________________
 cross.addEventListener("click", closeModal);
 
 function closeModal() {
   modalbg.style.display = "none";
 }
-// function thanckYou
+// function thanckYou __________________________________________________
 function thanckYou() {  
   modalBody.appendChild(newDiv); // newDiv est enfant de modalBody
   modalBody.appendChild(form); // form est enfant de modalBody
@@ -70,7 +70,7 @@ function thanckYou() {
 
   goButton.addEventListener("click", closeModal);// écoute de l'event "click" sur goButton / action: closeModal
 }
-// function testFirstName ________________________________
+// function testFirstName ______________________________________________
 formDataOne.appendChild(pErrorFirstName);
 pErrorFirstName.classList.add("pError");
 let regexFirstName = /^[a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+([ -'][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+)?$/;
@@ -93,7 +93,7 @@ function testFirstName() {
     return true;
   }
 }
-// function testLastName _________________________________
+// function testLastName _______________________________________________
 formDataTwo.appendChild(pErrorLastName);
 pErrorLastName.classList.add("pError");
 let regexLastName = regexFirstName;
@@ -116,7 +116,7 @@ function testLastName() {
     return true;
   }
 }
-// function testEmail ____________________________________
+// function testEmail __________________________________________________
 formDataThree.appendChild(pErrorEmail);
 pErrorEmail.classList.add("pError");
 let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;;
@@ -139,13 +139,12 @@ function testEmail() {
     return true;
   }
 }
-// function testBirthDate ________________________________
+// function testBirthDate _____________________________________________
 formDataFour.appendChild(pErrorBirthDate);
 pErrorBirthDate.classList.add("pError");
 
 birthDate.addEventListener("blur", testBirthDate);
 goButton.addEventListener("mousedown", testBirthDate);
-
 
 function testBirthDate() {
   year = birthDate.value.substring(0,4);
@@ -161,7 +160,6 @@ function testBirthDate() {
     pErrorBirthDate.innerHTML = "Vous n'avez pas l'âge minimum requis (12 ans)"; // message d'erreur sur paragraphe pError;
     return false;
   } else if (age < 18) {
-    birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
     pErrorBirthDate.innerHTML = "Vous n'êtes pas majeur, une autorisation parentale vous sera demandé"; // message d'erreur sur paragraphe pError;
     return true;
   } else {
@@ -170,7 +168,7 @@ function testBirthDate() {
     return true;
   }
 }
-// launch testRadio event _________________________________
+// function testRadio _______________________________________________
 formDataSix.appendChild(pErrorRadio);
 pErrorRadio.classList.add("pError");
 
@@ -191,7 +189,7 @@ function testRadio() {
     return true;
   }
 }
-// launch testCheckbox event ______________________________
+// function testCheckbox _____________________________________________
 formDataSeven.appendChild(pErrorCheckbox);
 pErrorCheckbox.classList.add("pError");
 
@@ -207,7 +205,7 @@ function testCheckbox() {
     return true;
   }
 }
-// launch submit event ______________________________
+// function submit __________________________________________________
 
 form.addEventListener("submit", validate);
 
