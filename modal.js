@@ -215,7 +215,6 @@ function validate(event) {
     thanckYou();
     let request = new XMLHttpRequest();
     request.open("GET", "http://url-service-web.com/api/users");
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(jsonBody));
+    request.send();
   }
 }
