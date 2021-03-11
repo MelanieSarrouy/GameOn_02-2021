@@ -14,8 +14,8 @@ let goButton = document.getElementById("button"); // bouton validation
 
 const form = document.getElementById("form"); // le formulaire
 const formData = document.getElementsByClassName("formData"); // Toutes les div formData avec input
-let inputRadioLocation = document.querySelectorAll("form:nth-child(7) .checkbox-input");
-let inputCheckBox = document.querySelectorAll("form:nth-child(8) .checkbox-input");
+let inputRadioLocation = document.getElementsByName("location"); // Tous les inputs type radio
+const agree = document.getElementById("checkbox1"); // input agree
 
 const cross = document.getElementById("close"); // X fermeture de la modale
 
@@ -34,14 +34,6 @@ const firstName = document.getElementById("firstname"); // ajout input firstname
 const lastName = document.getElementById("lastname"); // ajout input lastname dans le DOM
 const eMail = document.getElementById("email"); // ajout input email dans le DOM
 const birthDate = document.getElementById("birthdate"); // ajout input birthdate dans le DOM
-const quantity = document.getElementById("quantity"); // ajout input quantity dans le DOM
-
-const formDataOne = formData[0]; // ciblage 1er element formData - div firstname
-const formDataTwo = formData[1]; // ciblage 2eme element formData - div lastname
-const formDataThree = formData[2]; // ciblage 3eme element formData - div email
-const formDataFour = formData[3]; // ciblage 4eme element formData - div birthdate
-const formDataSix = formData[5]; // ciblage 6eme element formData - div location
-const formDataSeven = formData[6]; // ciblage 7eme element formData - div checkbox
 
 // function launchModal ________________________________________________
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -71,7 +63,7 @@ function thanckYou() {
   goButton.addEventListener("click", closeModal);// écoute de l'event "click" sur goButton / action: closeModal
 }
 // function testFirstName ______________________________________________
-formDataOne.appendChild(pErrorFirstName);
+formData[0].appendChild(pErrorFirstName);
 pErrorFirstName.classList.add("pError");
 let regexFirstName = /^[a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+([ \-'][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ][a-zA-ZéèêëîïÈÉÊËÎÏÀÁÂ]+)?$/;
 
@@ -84,17 +76,17 @@ function testFirstName() {
      (!regexFirstName.test(firstName.value)) || 
      (firstName.value == "")) {
     firstName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorFirstName.innerHTML = "Veuillez saisir votre prénom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
+    pErrorFirstName.textContent = "Veuillez saisir votre prénom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
     firstName.addEventListener("input", testFirstName);
     return false;
   } else {
     firstName.classList.remove("inputError");
-    pErrorFirstName.innerHTML = "";
+    pErrorFirstName.textContent = "";
     return true;
   }
 }
 // function testLastName _______________________________________________
-formDataTwo.appendChild(pErrorLastName);
+formData[1].appendChild(pErrorLastName);
 pErrorLastName.classList.add("pError");
 let regexLastName = regexFirstName;
 
@@ -107,17 +99,17 @@ function testLastName() {
      (!regexLastName.test(lastName.value)) || 
      (lastName.value == "")) {
     lastName.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorLastName.innerHTML = "Veuillez saisir votre nom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
+    pErrorLastName.textContent = "Veuillez saisir votre nom (min 2 caractères)"; // message d'erreur sur paragraphe pError;
     lastName.addEventListener("input", testLastName);
     return false;
   } else {
     lastName.classList.remove("inputError");
-    pErrorLastName.innerHTML = "";
+    pErrorLastName.textContent = "";
     return true;
   }
 }
 // function testEmail __________________________________________________
-formDataThree.appendChild(pErrorEmail);
+formData[2].appendChild(pErrorEmail);
 pErrorEmail.classList.add("pError");
 let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -130,17 +122,17 @@ function testEmail() {
      (!regexEmail.test(eMail.value)) || 
      (eMail.value == "")) {
     eMail.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorEmail.innerHTML = "Adresse mail incorrecte"; // message d'erreur sur paragraphe pError;
+    pErrorEmail.textContent = "Adresse mail incorrecte"; // message d'erreur sur paragraphe pError;
     eMail.addEventListener("input", testEmail);
     return false;
   } else {
     eMail.classList.remove("inputError");
-    pErrorEmail.innerHTML = "";
+    pErrorEmail.textContent = "";
     return true;
   }
 }
 // function testBirthDate _____________________________________________
-formDataFour.appendChild(pErrorBirthDate);
+formData[3].appendChild(pErrorBirthDate);
 pErrorBirthDate.classList.add("pError");
 
 birthDate.addEventListener("blur", testBirthDate);
@@ -152,57 +144,59 @@ function testBirthDate() {
   var age = today.getFullYear() - year;	// Calcul de l'âge
   if (birthDate.value == "") {
     birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorBirthDate.innerHTML = "Veuillez saisir votre date de naissance"; // message d'erreur sur paragraphe pError;
+    pErrorBirthDate.textContent = "Veuillez saisir votre date de naissance"; // message d'erreur sur paragraphe pError;
     birthDate.addEventListener("input", testBirthDate);
     return false;
   } else  if (age < 12) {
     birthDate.classList.add("inputError"); // attribution de la classe "inputError" à firstName(input)
-    pErrorBirthDate.innerHTML = "Vous n'avez pas l'âge minimum requis (12 ans)"; // message d'erreur sur paragraphe pError;
+    pErrorBirthDate.textContent = "Vous n'avez pas l'âge minimum requis (12 ans)"; // message d'erreur sur paragraphe pError;
     return false;
   } else if (age < 18) {
-    pErrorBirthDate.innerHTML = "Vous n'êtes pas majeur, une autorisation parentale vous sera demandé"; // message d'erreur sur paragraphe pError;
+    pErrorBirthDate.textContent = "Vous n'êtes pas majeur, une autorisation parentale vous sera demandé"; // message d'erreur sur paragraphe pError;
     return true;
   } else {
     birthDate.classList.remove("inputError");
-    pErrorBirthDate.innerHTML = "";
+    pErrorBirthDate.textContent = "";
     return true;
   }
 }
 // function testRadio _______________________________________________
-formDataSix.appendChild(pErrorRadio);
+formData[5].appendChild(pErrorRadio);
 pErrorRadio.classList.add("pError");
-
-formDataSix.addEventListener("click", testRadio);
+formData[5].addEventListener("click", testRadio);
 goButton.addEventListener("mousedown", testRadio);
 
 function testRadio() {
-  if (!((document.getElementById("location1").checked == true) || 
-      (document.getElementById("location2").checked == true) ||
-      (document.getElementById("location3").checked == true) ||
-      (document.getElementById("location4").checked == true) ||
-      (document.getElementById("location5").checked == true) ||
-      (document.getElementById("location6").checked == true)) ) {
-    pErrorRadio.innerHTML = "Veuillez choisir une ville"; // message d'erreur sur paragraphe pError;
+  let chosen = "";
+  let len = inputRadioLocation.length;
+  for (i=0; i < len; i++) {
+    if (inputRadioLocation[i].checked) {
+      chosen = inputRadioLocation[i].value;
+      pErrorRadio.textContent = "";
+      return true;
+    }
+  }
+  if (chosen == "") {
+    pErrorRadio.textContent = "Veuillez choisir une ville"; // message d'erreur sur paragraphe pError;
     return false;
-  } else {
-    pErrorRadio.innerHTML = "";
-    return true;
   }
 }
 // function testCheckbox _____________________________________________
-formDataSeven.appendChild(pErrorCheckbox);
+formData[6].appendChild(pErrorCheckbox);
 pErrorCheckbox.classList.add("pError");
 
-formDataSeven.addEventListener("click", testCheckbox);
+formData[6].addEventListener("click", testCheckbox);
 goButton.addEventListener("mousedown", testCheckbox);
 
 function testCheckbox() {
-  if ((document.getElementById("checkbox1").checked !== true) ) {
-    pErrorCheckbox.innerHTML = "Vous devez accepter les conditions d'utilisation"; // message d'erreur sur paragraphe pError;
+  let chosen = "";
+  if (agree.checked) {
+      chosen = agree.value;
+      pErrorCheckbox.textContent = "";
+      return true;
+  } else if (chosen == "") {
+    pErrorCheckbox.textContent = "Vous devez accepter les conditions d'utilisation"; // message d'erreur sur paragraphe pError;
     return false;
-  } else {
-    pErrorCheckbox.innerHTML = "";
-    return true;
   }
 }
 // function submit __________________________________________________
@@ -223,7 +217,5 @@ function validate(event) {
     request.open("GET", "http://url-service-web.com/api/users");
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify(jsonBody));
-  } else {
-    alert("Veuillez saisir correctement les informations demandées");
   }
 }
